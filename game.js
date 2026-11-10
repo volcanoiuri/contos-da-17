@@ -1385,6 +1385,12 @@ function gameVictory() {
   closeOffer();
   SoundFX.victory();
 
+  const overlayCard = document.querySelector('.overlay-card');
+  if (overlayCard) overlayCard.classList.remove('start-card');
+  document.getElementById('overlayIcon').classList.remove('hidden');
+  document.getElementById('overlayTitle').classList.remove('hidden');
+  document.getElementById('overlayMessage').classList.remove('hidden');
+
   document.getElementById('overlayIcon').textContent = '🎖️👨‍🚒🎺';
   overlayTitle.textContent = 'FIM DE EXPEDIENTE!';
   overlayMessage.innerHTML = `
@@ -1395,6 +1401,7 @@ function gameVictory() {
     <strong>Recorde:</strong> ${highScore}
   `;
   startBtn.textContent = 'JOGAR NOVAMENTE';
+  startBtn.classList.remove('big-start-btn');
   uiOverlay.classList.remove('hidden');
 }
 
@@ -1404,6 +1411,12 @@ function gameOver() {
   closeOffer();
   SoundFX.gameOver();
 
+  const overlayCard = document.querySelector('.overlay-card');
+  if (overlayCard) overlayCard.classList.remove('start-card');
+  document.getElementById('overlayIcon').classList.remove('hidden');
+  document.getElementById('overlayTitle').classList.remove('hidden');
+  document.getElementById('overlayMessage').classList.remove('hidden');
+
   document.getElementById('overlayIcon').textContent = '⚠️🌿🔥';
   overlayTitle.textContent = 'TERRENO ENGOLIDO!';
   overlayMessage.innerHTML = `O mato tomou conta de 100% do destacamento 17!<br><br>
@@ -1411,6 +1424,7 @@ function gameOver() {
     <strong>Dinheiro Acumulado:</strong> R$ ${Math.floor(money)}<br>
     <strong>Tempo Resistido:</strong> ${(TOTAL_GAME_TIME - timeRemaining).toFixed(0)} segundos`;
   startBtn.textContent = 'TENTAR NOVAMENTE';
+  startBtn.classList.remove('big-start-btn');
   uiOverlay.classList.remove('hidden');
 }
 
@@ -1456,10 +1470,26 @@ function startGame() {
   uiOverlay.classList.add('hidden');
 }
 
-startBtn.addEventListener('click', () => {
+const handleStartAction = (e) => {
+  if (e) e.preventDefault();
   getAudioContext();
   startGame();
+};
+
+startBtn.addEventListener('click', handleStartAction);
+startBtn.addEventListener('touchend', handleStartAction, { passive: false });
+
+// No celular, toque na tela inicial também inicia a missão diretamente!
+uiOverlay.addEventListener('click', (e) => {
+  if (gameState === 'START') {
+    handleStartAction(e);
+  }
 });
+uiOverlay.addEventListener('touchend', (e) => {
+  if (gameState === 'START') {
+    handleStartAction(e);
+  }
+}, { passive: false });
 
 // Game Loop
 let lastFrameTime = performance.now();

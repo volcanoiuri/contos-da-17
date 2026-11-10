@@ -87,34 +87,13 @@
       
       <!-- Overlay Menu Inicial / Pause / Game Over / Fim dos 3 Minutos -->
       <div id="uiOverlay" class="ui-overlay">
-        <div class="overlay-card">
-          <div class="fire-icon" id="overlayIcon">👨‍🚒🗡️🌿</div>
-          <h2 id="overlayTitle">CONTOS DA 17</h2>
-          <p id="overlayMessage">O mato do terreno ao lado do quartel 17 está crescendo fora de controle! Empunhe o facão, acumule dinheiro e capine até a hora da liberação!</p>
-          
-          <div class="controls-guide" id="controlsGuide">
-            <div class="ctrl-row">
-              <span class="key-badge">⬆️</span>
-              <span class="key-badge">⬇️</span>
-              <span class="key-badge">⬅️</span>
-              <span class="key-badge">➡️</span>
-              <span class="ctrl-desc">Mover Bombeiro</span>
-            </div>
-            <div class="ctrl-row">
-              <span class="key-badge key-highlight">F</span>
-              <span class="ctrl-desc">Dar Facãozada / Roçadeira</span>
-            </div>
-            <div class="ctrl-row">
-              <span class="key-badge">S</span>
-              <span class="key-badge">N</span>
-              <span class="ctrl-desc">Alugar Roçadeira (R$ 150)</span>
-            </div>
-            <div class="ctrl-row mobile-hint">
-              <span class="ctrl-desc">📱 No celular: use os botões virtuais!</span>
-            </div>
-          </div>
+        <div class="overlay-card start-card">
+          <div class="fire-icon hidden" id="overlayIcon">👨‍🚒</div>
+          <h2 id="overlayTitle" class="hidden">CONTOS DA 17</h2>
+          <div id="overlayMessage" class="hidden"></div>
+          <div class="controls-guide hidden" id="controlsGuide"></div>
 
-          <button id="startBtn" class="action-btn">INICIAR MISSÃO</button>
+          <button id="startBtn" class="action-btn big-start-btn">INICIAR MISSÃO</button>
         </div>
       </div>
     </div>

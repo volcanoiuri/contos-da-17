@@ -409,6 +409,41 @@ body {
   animation: popIn 0.3s ease-out;
 }
 
+/* Card Limpo da Tela Inicial (Apenas o Botão Iniciar) */
+.overlay-card.start-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-start-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.15rem;
+  padding: 20px 36px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f77f00, #d62828);
+  color: #ffffff;
+  border: 3px solid #fcbf49;
+  box-shadow: 0 6px 0 #8d0801, 0 10px 25px rgba(247, 127, 0, 0.7);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: transform 0.1s, box-shadow 0.1s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  width: auto;
+  min-width: 270px;
+}
+
+.big-start-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #8d0801, 0 4px 15px rgba(247, 127, 0, 0.5);
+}
+
 @keyframes popIn {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
