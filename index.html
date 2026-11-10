@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Contos da 17 - O Bombeiro do Facão</title>
+  <title>Contos da 17 - O Bombeiro do Facão e da Roçadeira</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +19,16 @@
 
     <div class="hud-bar">
       <div class="hud-item">
+        <span class="hud-label">TEMPO</span>
+        <span id="timerVal" class="hud-value timer-text">03:00</span>
+      </div>
+      <div class="hud-item">
         <span class="hud-label">PONTOS</span>
         <span id="scoreVal" class="hud-value">0</span>
       </div>
       <div class="hud-item">
-        <span class="hud-label">RECORDE</span>
-        <span id="highScoreVal" class="hud-value">0</span>
+        <span class="hud-label">DINHEIRO</span>
+        <span id="moneyVal" class="hud-value money-text">R$ 0</span>
       </div>
       <div class="hud-item meter-container">
         <span class="hud-label">INFESTAÇÃO DE MATO</span>
@@ -42,17 +46,53 @@
       </div>
     </div>
 
+    <!-- Indicador da Roçadeira Ativa -->
+    <div id="trimmerActiveBar" class="trimmer-active-bar hidden">
+      <div class="trimmer-badge">⚡ ROÇADEIRA ATIVA (3X VELOCIDADE)</div>
+      <div class="trimmer-meter">
+        <div id="trimmerMeterFill" class="trimmer-meter-fill"></div>
+      </div>
+      <span id="trimmerTimeText" class="trimmer-time">10.0s</span>
+    </div>
+
     <div class="canvas-container">
       <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+      <!-- Notificação Flutuante / Aviso de Tempo da Roçadeira -->
+      <div id="gameNotice" class="game-notice hidden"></div>
+
+      <!-- Popup de Oferta da Roçadeira (A cada 30s) -->
+      <div id="trimmerOfferModal" class="trimmer-offer-modal hidden">
+        <div class="offer-card">
+          <div class="offer-icon">🚜💨</div>
+          <h3 class="offer-title">OFERTA DE EQUIPAMENTO!</h3>
+          <p class="offer-quote">"Quer alugar a roçadeira meu afilhado?"</p>
+          <p class="offer-details">Corte o mato <strong>3x mais rápido</strong> durante 10 segundos por apenas <strong>R$ 150</strong>!</p>
+          
+          <div id="offerButtonsContainer" class="offer-actions">
+            <!-- Os botões de aceitar só aparecem se tiver R$ 150 -->
+            <button id="btnAcceptTrimmer" class="btn-offer btn-accept" title="Tecla S">
+              <span class="key-badge">S</span> ACEITAR (R$ 150)
+            </button>
+            <button id="btnDeclineTrimmer" class="btn-offer btn-decline" title="Tecla N">
+              <span class="key-badge">N</span> NÃO OBRIGADO
+            </button>
+          </div>
+          <div id="offerNoMoneyNotice" class="offer-no-money hidden">
+            ⚠️ Você precisa de R$ 150 para alugar a roçadeira!
+            <button id="btnCloseNoMoney" class="btn-offer btn-decline mt-2">Fechar [N]</button>
+          </div>
+        </div>
+      </div>
       
-      <!-- Overlay Menu Inicial / Pause / Game Over -->
+      <!-- Overlay Menu Inicial / Pause / Game Over / Fim dos 3 Minutos -->
       <div id="uiOverlay" class="ui-overlay">
         <div class="overlay-card">
-          <div class="fire-icon">👨‍🚒🗡️🌿</div>
+          <div class="fire-icon" id="overlayIcon">👨‍🚒🗡️🌿</div>
           <h2 id="overlayTitle">CONTOS DA 17</h2>
-          <p id="overlayMessage">O mato do terreno ao lado do quartel 17 está crescendo fora de controle! Empunhe o facão e capine sem parar.</p>
+          <p id="overlayMessage">O mato do terreno ao lado do quartel 17 está crescendo fora de controle! Empunhe o facão, acumule dinheiro e capine até a hora da liberação!</p>
           
-          <div class="controls-guide">
+          <div class="controls-guide" id="controlsGuide">
             <div class="ctrl-row">
               <span class="key-badge">⬆️</span>
               <span class="key-badge">⬇️</span>
@@ -62,10 +102,15 @@
             </div>
             <div class="ctrl-row">
               <span class="key-badge key-highlight">F</span>
-              <span class="ctrl-desc">Dar Facãozada</span>
+              <span class="ctrl-desc">Dar Facãozada / Roçadeira</span>
+            </div>
+            <div class="ctrl-row">
+              <span class="key-badge">S</span>
+              <span class="key-badge">N</span>
+              <span class="ctrl-desc">Alugar Roçadeira (R$ 150)</span>
             </div>
             <div class="ctrl-row mobile-hint">
-              <span class="ctrl-desc">📱 No celular: use os botões na tela!</span>
+              <span class="ctrl-desc">📱 No celular: use os botões virtuais!</span>
             </div>
           </div>
 
@@ -87,20 +132,29 @@
         <button type="button" class="t-btn t-down" id="tBtnDown">▼</button>
       </div>
 
-      <!-- Botão de Golpe de Facão Grande -->
-      <div class="touch-action">
+      <!-- Botões de Ação Touch (Corte + Roçadeira se disponível) -->
+      <div class="touch-actions-group">
+        <div id="mobileTrimmerButtons" class="mobile-trimmer-controls hidden">
+          <button type="button" class="t-opt-btn t-accept" id="tBtnAccept">
+            <span>S</span> SIM
+          </button>
+          <button type="button" class="t-opt-btn t-decline" id="tBtnDecline">
+            <span>N</span> NÃO
+          </button>
+        </div>
+
         <button type="button" class="t-slash-btn" id="tBtnSlash">
-          <span class="t-slash-icon">🗡️</span>
-          <span class="t-slash-text">GOLPE (F)</span>
+          <span class="t-slash-icon" id="tSlashIcon">🗡️</span>
+          <span class="t-slash-text" id="tSlashText">GOLPE (F)</span>
         </button>
       </div>
     </div>
 
     <footer class="game-footer">
       <div class="instructions-inline">
-        <span>🎮 <strong>Setas</strong> / <strong>D-Pad</strong>: Mover</span> • 
-        <span>🗡️ <strong>Tecla F</strong> / <strong>Botão</strong>: Cortar</span> • 
-        <span>⚠️ Evite que a infestação chegue a 100%!</span>
+        <span>⏱️ Duração: <strong>3 minutos</strong></span> • 
+        <span>💵 Dinheiro: <strong>R$ 150 a cada 30s</strong></span> • 
+        <span>🚜 Roçadeira: <strong>3x velocidade por 10s</strong></span>
       </div>
     </footer>
   </div>

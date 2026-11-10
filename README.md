@@ -1,17 +1,26 @@
-# Contos da 17 🔥🗡️🌿
+# Contos da 17 🔥🗡️🚜🌿
 
-Um jogo de navegador em ritmo acelerado onde você controla um bombeiro armado com um facão e precisa conter o avanço frenético do matagal no terreno ao lado do Destacamento 17!
+Um jogo de navegador em ritmo acelerado onde você controla um bombeiro que precisa capinar o mato do Destacamento 17 com facão ou alugar uma potente roçadeira motorizada!
 
 ## 🕹️ Como Jogar
 
-Basta abrir o arquivo `index.html` em qualquer navegador web moderno (Google Chrome, Edge, Firefox, Brave, Safari, etc.).
+Basta abrir o arquivo `index.html` em qualquer navegador web (Google Chrome, Edge, Safari, Firefox) ou pelo celular.
 
 ### 🎮 Controles
-- **Setas do Teclado (⬆️ ⬇️ ⬅️ ➡️)**: Movimentam o bombeiro pelo terreno.
-- **Tecla F**: Desfere a facãozada cortando o mato na sua frente.
+- **Setas do Teclado (⬆️ ⬇️ ⬅️ ➡️)** ou **D-Pad Touch no Celular**: Mover o bombeiro.
+- **Tecla F** ou **Botão Touch Gigante**: Cortar mato com o facão / roçadeira.
+- **Tecla S** / **Tecla N**: Aceitar [S] ou Recusar [N] o aluguel da roçadeira quando a oferta surgir.
 
-### 🎯 Objetivo & Mecânicas
-1. **O mato cresce sem parar**: Pequenos brotos viram matos médios e logo se tornam matagais densos que espalham sementes para os lados.
-2. **Dificuldade progressiva**: Quanto mais tempo passa e mais pontos você faz, mais rápido o mato brota e se propaga!
-3. **Barra de Infestação**: Acompanhe o percentual no topo da tela. Se a infestação chegar a **100%**, o quartel é engolido e é **Game Over**!
-4. **Combo & Pontuação**: Cortar múltiplos blocos de mato com o mesmo golpe rende pontos extras e combos especiais.
+### 🎯 Novas Mecânicas Implementadas
+1. **Sistema de Dinheiro (R$)**:
+   - O bombeiro ganha R$ 5,00 por segundo trabalhado (totalizando exatamente R$ 150 a cada 30 segundos).
+2. **Oferta da Roçadeira a cada 30 segundos**:
+   - Surge a mensagem: *"Quer alugar a roçadeira meu afilhado?"*.
+   - Se você tiver R$ 150 acumulados, pode aceitar pressionando **S** (ou recusar com **N**).
+3. **Poder da Roçadeira Motorizada (3x Mais Rápido)**:
+   - Durante 10 segundos, o bombeiro empunha de verdade uma roçadeira motorizada com disco giratório veloz e som característico.
+   - Velocidade de corte 3 vezes maior!
+   - Ao término dos 10 segundos, avisa: *"O tempo da roçadeira acabou!"* e volta ao facão.
+4. **Timer de 3 Minutos e Liberação**:
+   - O expediente dura exatamente 3 minutos (180 segundos).
+   - Ao resistir até o final, a missão é cumprida com o lema do quartel: **"Entrar em forma para liberação"**!
