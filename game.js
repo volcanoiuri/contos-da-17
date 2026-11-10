@@ -216,7 +216,7 @@ let gameState = 'START'; // 'START', 'PLAYING', 'GAMEOVER', 'VICTORY'
 let score = 0;
 let money = 0; // Ganha R$ 5,00 por segundo (exatamente R$ 150 a cada 30 segundos)
 let highScore = parseInt(localStorage.getItem('contos17_highscore') || '0', 10);
-highScoreVal.textContent = highScore;
+if (highScoreVal) highScoreVal.textContent = highScore;
 
 let gameTime = 0;
 let growthTimer = 0;
@@ -786,7 +786,7 @@ function updateHUD() {
   if (score > highScore) {
     highScore = score;
     localStorage.setItem('contos17_highscore', highScore);
-    highScoreVal.textContent = highScore;
+    if (highScoreVal) highScoreVal.textContent = highScore;
   }
 
   const infestation = getInfestationPercentage();
