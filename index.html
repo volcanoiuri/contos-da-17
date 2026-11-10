@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Contos da 17 - O Bombeiro do Facão</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-wrapper">
+    <header class="game-header">
+      <div class="title-badge">🔥 DESTACAMENTO 17 🔥</div>
+      <h1 class="game-title">CONTOS DA 17</h1>
+      <p class="subtitle">O mato não para de crescer! Limpe o terreno antes que o quartel seja engolido pela selva.</p>
+    </header>
+
+    <div class="hud-bar">
+      <div class="hud-item">
+        <span class="hud-label">PONTOS</span>
+        <span id="scoreVal" class="hud-value">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">RECORDE</span>
+        <span id="highScoreVal" class="hud-value">0</span>
+      </div>
+      <div class="hud-item meter-container">
+        <span class="hud-label">INFESTAÇÃO DE MATO</span>
+        <div class="meter-bar">
+          <div id="meterFill" class="meter-fill" style="width: 0%"></div>
+        </div>
+        <span id="meterText" class="meter-percent">0%</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">VELOCIDADE</span>
+        <span id="speedLevel" class="hud-value danger-text">1.0x</span>
+      </div>
+      <div class="hud-item">
+        <button id="soundToggle" class="sound-btn" title="Ligar/Desligar Efeitos Sonoros">🔊 Som: ON</button>
+      </div>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="gameCanvas" width="800" height="600"></canvas>
+      
+      <!-- Overlay Menu Inicial / Pause / Game Over -->
+      <div id="uiOverlay" class="ui-overlay">
+        <div class="overlay-card">
+          <div class="fire-icon">👨‍🚒🗡️🌿</div>
+          <h2 id="overlayTitle">CONTOS DA 17</h2>
+          <p id="overlayMessage">O mato do terreno ao lado do quartel 17 está crescendo fora de controle! Empunhe o facão e capine sem parar.</p>
+          
+          <div class="controls-guide">
+            <div class="ctrl-row">
+              <span class="key-badge">⬆️</span>
+              <span class="key-badge">⬇️</span>
+              <span class="key-badge">⬅️</span>
+              <span class="key-badge">➡️</span>
+              <span class="ctrl-desc">Mover Bombeiro</span>
+            </div>
+            <div class="ctrl-row">
+              <span class="key-badge key-highlight">F</span>
+              <span class="ctrl-desc">Dar Facãozada</span>
+            </div>
+            <div class="ctrl-row mobile-hint">
+              <span class="ctrl-desc">📱 No celular: use os botões na tela!</span>
+            </div>
+          </div>
+
+          <button id="startBtn" class="action-btn">INICIAR MISSÃO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles Virtuais Touch para Celular / Telas Sensíveis -->
+    <div id="touchControls" class="touch-controls">
+      <!-- D-Pad Direcional -->
+      <div class="touch-dpad">
+        <button type="button" class="t-btn t-up" id="tBtnUp">▲</button>
+        <div class="t-row-mid">
+          <button type="button" class="t-btn t-left" id="tBtnLeft">◀</button>
+          <div class="t-center"></div>
+          <button type="button" class="t-btn t-right" id="tBtnRight">▶</button>
+        </div>
+        <button type="button" class="t-btn t-down" id="tBtnDown">▼</button>
+      </div>
+
+      <!-- Botão de Golpe de Facão Grande -->
+      <div class="touch-action">
+        <button type="button" class="t-slash-btn" id="tBtnSlash">
+          <span class="t-slash-icon">🗡️</span>
+          <span class="t-slash-text">GOLPE (F)</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="game-footer">
+      <div class="instructions-inline">
+        <span>🎮 <strong>Setas</strong> / <strong>D-Pad</strong>: Mover</span> • 
+        <span>🗡️ <strong>Tecla F</strong> / <strong>Botão</strong>: Cortar</span> • 
+        <span>⚠️ Evite que a infestação chegue a 100%!</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
